@@ -47,6 +47,50 @@
     NSLog(@"%@", sender.textLabel.text);
 }
 
+- (void)kkPress:(CustomCell *)sender {
+    NSIndexPath *indexPath = [_tableView indexPathForCell:sender];
+    CGRect rect = [_tableView rectForRowAtIndexPath:indexPath];
+    
+//    UIMenuItem *copItem = [[UIMenuItem alloc] initWithTitle:@"copy" action:@selector(copy:)];
+//    UIMenuController *menu = [UIMenuController sharedMenuController];
+//    [menu setMenuItems:@[copItem]];
+//    [menu setTargetRect:rect inView:_tableView];
+//    [menu setMenuVisible:true animated:true];
+    [self showMenuByIndexPath:indexPath];
+}
+
+- (void)showMenuByIndexPath:(NSIndexPath *)indexPath {
+    CGRect rect = [_tableView rectForRowAtIndexPath:indexPath];
+    
+    UIMenuItem *copItem = [[UIMenuItem alloc] initWithTitle:@"copy" action:@selector(kkcopy:)];
+    UIMenuItem *kkItem = [[UIMenuItem alloc] initWithTitle:@"kk" action:@selector(kkkkkk:)];
+    
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    if (indexPath.row % 2 == 1) {
+        [menu setMenuItems:@[copItem]];
+    } else {
+        [menu setMenuItems:@[copItem, kkItem]];
+    }
+    [menu setTargetRect:rect inView:_tableView];
+    [menu setMenuVisible:true animated:true];
+    [menu update];
+    
+}
+
+
+- (void)kkcopy:(id)sender {
+    
+}
+
+- (void)kkkkkk:(id)sender {
+    
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return true;
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

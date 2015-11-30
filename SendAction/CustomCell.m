@@ -9,6 +9,9 @@
 #import "CustomCell.h"
 #import "UIView+SendAction.h"
 
+@interface CustomCell ()<UITextFieldDelegate>
+
+@end
 
 @implementation CustomCell
 
@@ -20,12 +23,34 @@
         [btn setTitle:@"btn" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(clickedBtn) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
+        
+        UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPr:)];
+        [self addGestureRecognizer:press];
+        
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 70, 40)];
+        textField.layer.borderColor = [UIColor grayColor].CGColor;
+        textField.layer.borderWidth = 1 / [UIScreen mainScreen].scale;
+        textField.delegate = self;
+        [self addSubview:textField];
+        
     }
     return self;
 }
 
+-  (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return true;
+}
+
 - (void)clickedBtn {
     [self shbSendAction:@selector(sendAction:) from:self];
+}
+
+- (void)longPr:(UILongPressGestureRecognizer *)press {
+    if (press.state == UIGestureRecognizerStateBegan) {
+        [self shbSendAction:@selector(kkPress:) from:self];
+    }
+    
 }
 
 @end

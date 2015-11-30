@@ -10,18 +10,18 @@
 
 @implementation UIView (SendAction)
 
-- (BOOL)shbSendAction:(SEL)acton from:(id)sender {
+- (BOOL)shbSendAction:(SEL)action from:(id)sender {
     
-    id taget = sender;
+    id target = sender;
     
-    while (taget && ![taget canPerformAction:acton withSender:taget]) {
-        taget = [taget nextResponder];
+    while (target && ![target canPerformAction:action withSender:sender]) {
+        target = [target nextResponder];
     }
-    if (!taget) {
+    if (!target) {
         return false;
     }
     
-    return [[UIApplication sharedApplication] sendAction:acton to:taget from:sender forEvent:nil];
+    return [[UIApplication sharedApplication] sendAction:action to:target from:sender forEvent:nil];
 }
 
 @end
