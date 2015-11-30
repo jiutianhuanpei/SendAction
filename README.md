@@ -6,7 +6,7 @@
     
     id taget = sender;
     
-    while (taget && ![taget canPerformAction:acton withSender:taget]) {
+    while (taget && ![taget canPerformAction:acton withSender:sender]) {
         taget = [taget nextResponder];
     }
     if (!taget) {
